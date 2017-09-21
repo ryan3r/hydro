@@ -1,0 +1,3 @@
+# The basic Hello world!
+
+System.print("Hello world!");

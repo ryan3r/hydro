@@ -1,0 +1,31 @@
+# REPL - Read Eval Print Loop
+
+context = System.createContext();
+running = true;
+
+# read and evaluate a line
+replLoop = func() {
+    line = System.readLine("> ");
+    result = context.eval(line);
+    
+    if result.success {
+        System.print(result.unwrap());
+    }
+    else {
+        result.printError();
+    };
+    
+    if running {
+        replLoop();
+    };
+};
+
+# exit the repl after this line
+context.scope.exit = func() {
+    running = false;
+};
+
+# start the repl
+System.print("Hydro repl");
+
+replLoop();

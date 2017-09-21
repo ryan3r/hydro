@@ -1,0 +1,41 @@
+# Displays a list of demos
+
+choose = func() {
+    System.print("Demos");
+    System.print("");
+    System.print("  1) Hello world");
+    System.print("  2) Guess a number");
+    System.print("  3) REPL");
+    System.print("  4) Exit");
+    System.print("");
+    
+    choice = System.readLine("Choose a demo: ").toNumber();
+    System.print("");
+    
+    # invalid number
+    if (choice == NaN) || (choice < 1) || (choice > 4) || (choice.floor() != choice) {
+        System.print("Invalid choice");
+	choose();
+        return;
+    };
+    
+    if choice == 1 {
+        require("hello.txt");
+    };
+    
+    if choice == 2 {
+        require("guess.txt");
+    };
+    
+    if choice == 3 {
+        require("repl.txt");
+    };
+    
+    System.print("");
+    
+    if choice < 4 {
+        choose();
+    };
+};
+
+choose();

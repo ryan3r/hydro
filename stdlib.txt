@@ -1,0 +1,112 @@
+# Hydro standard library
+
+#logical and
+Object.&& = func(other) {
+	if self {
+		other;
+	}
+	else {
+		false;
+	};
+};
+
+# logical or
+Object.|| = func(other) {
+	if self {
+		self;
+	}
+	else {
+		other;
+	};
+};
+
+# concatinate any 2 values as a string
+Object.++ = func(other) {
+	self.toString() ++ other;
+};
+
+# not equal
+Object.!= = func(other) {
+    if self == other {
+        false;
+    }
+    else {
+        true;
+    };
+};
+
+# a list of items
+global.List = func() {
+	list = List.proto.create();
+
+	list.length = 0;
+
+	return list;
+};
+
+# create a list from a list like object
+List.from = func(listLike) {
+    list = List.proto.create();
+
+    # copy the length
+	list.length = listLike.length;
+    
+    # copy the items
+    iter = func(index) {
+        if index < list.length {
+            list.set(index, listLike.get(index));
+            iter(index + 1);
+        };
+    };
+    
+    iter(0);
+
+	return list;
+};
+
+List.proto = Object.create();
+
+# add an item
+List.proto.add = func(value) {
+	self.set(self.length, value);
+	self.length = self.length + 1;
+};
+
+# remove an item by its index
+List.proto.remove = func(index) {
+	list = self;
+
+	self.forEach(func(value, i) {
+		if i > index {
+			list.set(i - 1, value);
+		};
+	});
+
+	self.length = self.length - 1;
+
+	self.set(self.length, undefined);
+};
+
+# iterate the list
+List.proto.forEach = func(fn) {
+	iter = func(index, list) {
+		if index < list.length {
+			fn(list.get(index), index);
+			iter(index + 1, list);
+		};
+	};
+
+	iter(0, self);
+};
+
+# replace Object.keys and Object.ownKeys so the return real lists
+Object.rawKeys = Object.keys;
+Object.rawOwnKeys = Object.ownKeys;
+
+Object.keys = func() {
+    List.from(self.rawKeys());
+};
+
+Object.ownKeys = func() {
+    List.from(self.rawOwnKeys());
+};

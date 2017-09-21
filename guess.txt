@@ -1,0 +1,31 @@
+# Demo guessing game
+
+takeGuess = func(times) {
+    # check if we are out of guesses
+    if times == 0 {
+        System.print("You ran out of guesses");
+        return;
+    };
+    
+    guess = System.readLine("Enter a guess between 1 and 5: ").toNumber();
+    
+    # invalid number
+    if (guess == NaN) || (guess < 1) || (guess > 5) || (guess.floor() != guess) {
+        System.print("Invalid guess");
+        takeGuess(times);
+        return;
+    };
+    
+    # check if the guess is valid
+    if num == guess {
+        System.print("Successful guess");
+    }
+    else {
+        System.print("Incorrect guess");
+        takeGuess(times - 1);
+    };
+};
+
+num = System.random(1, 5);
+
+takeGuess(5);
