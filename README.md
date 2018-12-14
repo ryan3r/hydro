@@ -1,3 +1,5 @@
+NOTE: This is a class project that I did a few years ago.  
+
 PROJECT TITLE: Hydro
 PURPOSE OF PROJECT: A simple programming language
 VERSION or DATE: 1.0
